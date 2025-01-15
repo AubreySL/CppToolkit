@@ -60,13 +60,45 @@ int pack()
 	return 1;
 
 }
-void unpack()
+int unpack()
 {
-	//todo
+	FILE* fp;
+	fopen_s(&fp, "temp/1.pack", "rb");
+	if (NULL == fp)
+	{
+		printf("open pack file failed !!!\n");
+		return -1;
+	}
+	struct file_header hdr;
+	while (true)
+	{
+		int ret = fread(&hdr, 1, sizeof(hdr), fp);
+		if (ret <= 0)break;
+		FILE* temp;
+		fopen_s(&temp, hdr.filename, "wb");
+		if (NULL == temp)
+		{
+			fseek(fp, hdr.filesize, SEEK_CUR);
+			continue;
+		}
+		int size = hdr.filesize;//rest of file
+		char buffer[4096] = { 0 };
+		while (size > 0)
+		{
+			int ret = fread(buffer, 1, (size < 4096 ? size : 4096), fp);
+			size -= ret;
+			fwrite(buffer, 1, ret, temp);
+		}
+		fclose(temp);
+		printf("unpack file success.\n");
+	}
+	fclose(fp);
+	return 1;
 }
 int main()
 {
-	pack();
+	//pack();
+	unpack();
 	return 0;
 }
 
