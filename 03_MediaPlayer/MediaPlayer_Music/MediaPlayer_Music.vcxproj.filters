@@ -24,15 +24,27 @@
     <ClInclude Include="SPainter.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="SButtonEx.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="SPlayerMusic.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
+    <ClCompile Include="main.c">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="SWindow.cpp">
+    <ClCompile Include="SWindow.c">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="SPainter.cpp">
+    <ClCompile Include="SPainter.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="SButtonEx.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="SPlayerMusic.c">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

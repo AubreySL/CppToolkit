@@ -1,5 +1,6 @@
 #include "SWindow.h"
 #include "SPainter.h"
+#include "SPlayerMusic.h"
 void init_window(SWindow* pthis, const char* imgURL)
 {
 	//init
@@ -41,6 +42,9 @@ void render_window(SWindow* pthis)
 
 void event_loop(SWindow* pthis)
 {
+	SPlayerMucsic playermusic;
+	init_playermusic(&playermusic);
+	init_playList(&playermusic);
 	bool isRunning = true;
 	while (isRunning)
 	{
@@ -54,11 +58,17 @@ void event_loop(SWindow* pthis)
 				break;
 	
 			}
+			event_playermusic(&playermusic, &msg);
 		}
+
+		//paint
 		SDL_RenderClear(pthis->render);
 		render_window(pthis);
-
+		render_playermusic(pthis->render, &playermusic);
 		SDL_RenderPresent(pthis->render);
+
+		//data
+		onEvent_playermusic(&playermusic);
 	}
 }
 

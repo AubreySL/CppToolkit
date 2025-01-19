@@ -135,13 +135,17 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Common.h" />
+    <ClInclude Include="SButtonEx.h" />
     <ClInclude Include="SPainter.h" />
+    <ClInclude Include="SPlayerMusic.h" />
     <ClInclude Include="SWindow.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="SPainter.cpp" />
-    <ClCompile Include="SWindow.cpp" />
+    <ClCompile Include="main.c" />
+    <ClCompile Include="SButtonEx.c" />
+    <ClCompile Include="SPainter.c" />
+    <ClCompile Include="SPlayerMusic.c" />
+    <ClCompile Include="SWindow.c" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

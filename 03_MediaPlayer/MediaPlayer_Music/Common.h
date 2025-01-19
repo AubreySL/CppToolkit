@@ -12,3 +12,6 @@
 
 #define WIDTH 800
 #define HEIGHT 600
+
+#define BUTTON_W 40
+#define BUTTON_H 40

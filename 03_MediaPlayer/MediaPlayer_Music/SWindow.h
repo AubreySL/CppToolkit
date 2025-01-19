@@ -8,7 +8,7 @@ typedef struct SWindow
 	int w;
 	int h;
 	SDL_Surface* background;
-}SWindows;
+}SWindow;
 
 void init_window(SWindow* pthis, const char* imgURL);
 void create_window(SWindow* pthis, const char* title);
