@@ -2,19 +2,44 @@
 #include <QApplication>
 #include <QScreen>
 #include <QCursor>
+#include <QEvent>
+#include "keycapture.h"
+#include "keymonitor.h"
+
 SnipastApp::SnipastApp(QObject *parent)
     : QObject{parent},
     sysMenu(new QSystemTrayIcon(this)),
-    mainView(new Widget)
+    mainView(new ScreenWidget)
 {
     this->sysMenu->setIcon(QIcon("://logo"));
 
     initSysMenu();
     this->sysMenu->show();
-    connect(this,&SnipastApp::shotFinished, this->mainView, &Widget::receivePix);
+    connect(this,&SnipastApp::full_screen, this->mainView, &ScreenWidget::receivePix);
+    connect(this,&SnipastApp::partial_screen, this->mainView, &ScreenWidget::showFullScreen);
+    connect(this,&SnipastApp::hide_screen, this->mainView, &ScreenWidget::hideScreen);
+    //键盘监听
+    connect(KeyCapture::instance(), &KeyCapture::getKey, [=](int key){
+        // qDebug()<<QString::number(key);
+        if(key == keycode::F1){
+            graspScreen();
+        }
+        if(key == keycode::F2){
+            graspFullScreen();
+        }
+        if(key == keycode::ESC){
+            hideScreen();
+        }
+    });
+    startHook();
 }
 
 void SnipastApp::graspScreen()
+{
+    emit partial_screen();
+}
+
+void SnipastApp::graspFullScreen()
 {
     QList<QScreen*> screens = qApp->screens();
     if(screens.isEmpty())
@@ -39,15 +64,21 @@ void SnipastApp::graspScreen()
         return;
     }
 
-    emit shotFinished(pix);
+    emit full_screen(pix);
+}
 
+void SnipastApp::hideScreen()
+{
+    emit hide_screen();
 }
 
 void SnipastApp::initSysMenu()
 {
     QMenu* menu = new QMenu;
-    menu->addAction("截图", this, SLOT(graspScreen()));
+    menu->addAction("截图 F1", this, SLOT(graspScreen()));
+    menu->addAction("截全屏 F2", this, SLOT(graspFullScreen()));
     menu->addAction("退出", qApp, SLOT(quit()));
 
     this->sysMenu->setContextMenu(menu);
 }
+

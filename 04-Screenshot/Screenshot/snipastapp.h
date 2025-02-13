@@ -4,7 +4,7 @@
 #include <QObject>
 #include <QSystemTrayIcon>
 #include <QMenu>
-#include "widget.h"
+#include "screenwidget.h"
 class SnipastApp : public QObject
 {
     Q_OBJECT
@@ -13,16 +13,20 @@ public:
 
 public slots:
     void graspScreen();
+    void graspFullScreen();
+    void hideScreen();
 
 signals:
-    void shotFinished(QPixmap pix);
+    void partial_screen();
+    void full_screen(QPixmap pix);
+    void hide_screen();
 
 private:
     void initSysMenu();
 
 private:
-    QSystemTrayIcon* sysMenu;
-    Widget* mainView;
+    QSystemTrayIcon* sysMenu;//菜单
+    ScreenWidget* mainView;//显示截图窗口
 };
 
 #endif // SNIPASTAPP_H
