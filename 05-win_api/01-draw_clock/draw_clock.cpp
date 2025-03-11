@@ -12,7 +12,7 @@ WCHAR szTitle[MAX_LOADSTRING]=TEXT("MyWindow");                  // 标题栏文
 WCHAR szWindowClass[MAX_LOADSTRING]=TEXT("Clock");            // 主窗口类名
 
 //define const
-const int CLOCK_SIZE = 200;
+const int CLOCK_SIZE = 400;
 const double TWOPI = 2 * 3.1415926;
 
 // 此代码模块中包含的函数的前向声明:
@@ -81,7 +81,8 @@ ATOM MyRegisterClass(HINSTANCE hInstance)
     wcex.hIcon          = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_MY01DRAWCLOCK));
     wcex.hCursor        = LoadCursor(nullptr, IDC_ARROW);
     wcex.hbrBackground  = (HBRUSH)(COLOR_WINDOW+1);
-    wcex.lpszMenuName   = MAKEINTRESOURCEW(IDC_MY01DRAWCLOCK);
+    //wcex.lpszMenuName   = MAKEINTRESOURCEW(IDC_MY01DRAWCLOCK);
+    wcex.lpszMenuName   = NULL;
     wcex.lpszClassName  = szWindowClass;
     wcex.hIconSm        = LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_SMALL));
 
@@ -206,13 +207,13 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         {
         case '1'://change window backround
             SetClassLongPtr(hWnd, GCLP_HBRBACKGROUND,
-                (LONG)CreatePatternBrush((HBITMAP)LoadImage(NULL, TEXT("images/black1.svg"),
+                (LONG)CreatePatternBrush((HBITMAP)LoadImage(NULL, TEXT("images/black1.bmp"),
                     IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE)));
             InvalidateRect(hWnd, NULL, TRUE);
             break;
         case '2':
             SetClassLongPtr(hWnd, GCLP_HBRBACKGROUND,
-                (LONG)CreatePatternBrush((HBITMAP)LoadImage(NULL, TEXT("images/black2.svg"),
+                (LONG)CreatePatternBrush((HBITMAP)LoadImage(NULL, TEXT("images/black2.bmp"),
                     IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE)));
             InvalidateRect(hWnd, NULL, TRUE);
             break;
@@ -220,7 +221,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             SendMessage(hWnd, WM_CLOSE, 0, 0);
             break;
         }
-        break;
+        return 0;
     }
     case WM_DESTROY:
         KillTimer(hWnd, 1);
@@ -254,10 +255,26 @@ INT_PTR CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 
 VOID DrawDots(HDC hdc)
 {
+    int x, y;
+    int nRadius;
+
+    for (int nAngle=0; nAngle < 360; nAngle+=6)
+    {
+        x = CLOCK_SIZE / 2 + (int)((CLOCK_SIZE/2-4)*sin(TWOPI*nAngle/360));
+        y = CLOCK_SIZE / 2 - (int)((CLOCK_SIZE/2-4)*cos(TWOPI*nAngle/360));
+        nRadius = nAngle % 5 ? 2 : 4;
+        Ellipse(hdc, x - nRadius, y - nRadius, x + nRadius, y + nRadius);
+    }
 }
 VOID DrawLine(HDC hdc, int nAngle, int nRadiusAdjust) 
 {
-
+    int x1, x2, y1, y2;
+    x1 = CLOCK_SIZE / 2 + (int)(((CLOCK_SIZE / 2 - 4) - nRadiusAdjust) * sin(TWOPI * nAngle / 360));
+    y1 = CLOCK_SIZE / 2 - (int)(((CLOCK_SIZE / 2 - 4) - nRadiusAdjust) * cos(TWOPI * nAngle / 360));
+    x2 = CLOCK_SIZE / 2 + (int)(10 * sin(TWOPI * ((double)nAngle + 180) / 360));
+    y2 = CLOCK_SIZE / 2 - (int)(10 * cos(TWOPI * ((double)nAngle + 180) / 360));
+    MoveToEx(hdc, x1, y1, NULL);
+    LineTo(hdc, x2, y2);
 }
 
 
