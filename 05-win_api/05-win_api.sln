@@ -5,6 +5,12 @@ VisualStudioVersion = 17.10.35013.160
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "01-draw_clock", "01-draw_clock\01-draw_clock.vcxproj", "{139DE406-1B2A-4D98-A2B0-36155808A556}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "KeyboardDll", "KeyboardDll\KeyboardDll.vcxproj", "{7C06252B-80D5-451D-AEED-7FFF18E29B50}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "KeyboardTest", "KeyboardTest\KeyboardTest.vcxproj", "{8AF298B0-D22D-4F9C-BC0E-9310C7FC83B3}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GetCpuId", "GetCpuId\GetCpuId.vcxproj", "{69C7B9E9-B20E-4130-B8E2-D9DCB00ED9F4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -21,6 +27,30 @@ Global
 		{139DE406-1B2A-4D98-A2B0-36155808A556}.Release|x64.Build.0 = Release|x64
 		{139DE406-1B2A-4D98-A2B0-36155808A556}.Release|x86.ActiveCfg = Release|Win32
 		{139DE406-1B2A-4D98-A2B0-36155808A556}.Release|x86.Build.0 = Release|Win32
+		{7C06252B-80D5-451D-AEED-7FFF18E29B50}.Debug|x64.ActiveCfg = Debug|x64
+		{7C06252B-80D5-451D-AEED-7FFF18E29B50}.Debug|x64.Build.0 = Debug|x64
+		{7C06252B-80D5-451D-AEED-7FFF18E29B50}.Debug|x86.ActiveCfg = Debug|Win32
+		{7C06252B-80D5-451D-AEED-7FFF18E29B50}.Debug|x86.Build.0 = Debug|Win32
+		{7C06252B-80D5-451D-AEED-7FFF18E29B50}.Release|x64.ActiveCfg = Release|x64
+		{7C06252B-80D5-451D-AEED-7FFF18E29B50}.Release|x64.Build.0 = Release|x64
+		{7C06252B-80D5-451D-AEED-7FFF18E29B50}.Release|x86.ActiveCfg = Release|Win32
+		{7C06252B-80D5-451D-AEED-7FFF18E29B50}.Release|x86.Build.0 = Release|Win32
+		{8AF298B0-D22D-4F9C-BC0E-9310C7FC83B3}.Debug|x64.ActiveCfg = Debug|x64
+		{8AF298B0-D22D-4F9C-BC0E-9310C7FC83B3}.Debug|x64.Build.0 = Debug|x64
+		{8AF298B0-D22D-4F9C-BC0E-9310C7FC83B3}.Debug|x86.ActiveCfg = Debug|Win32
+		{8AF298B0-D22D-4F9C-BC0E-9310C7FC83B3}.Debug|x86.Build.0 = Debug|Win32
+		{8AF298B0-D22D-4F9C-BC0E-9310C7FC83B3}.Release|x64.ActiveCfg = Release|x64
+		{8AF298B0-D22D-4F9C-BC0E-9310C7FC83B3}.Release|x64.Build.0 = Release|x64
+		{8AF298B0-D22D-4F9C-BC0E-9310C7FC83B3}.Release|x86.ActiveCfg = Release|Win32
+		{8AF298B0-D22D-4F9C-BC0E-9310C7FC83B3}.Release|x86.Build.0 = Release|Win32
+		{69C7B9E9-B20E-4130-B8E2-D9DCB00ED9F4}.Debug|x64.ActiveCfg = Debug|x64
+		{69C7B9E9-B20E-4130-B8E2-D9DCB00ED9F4}.Debug|x64.Build.0 = Debug|x64
+		{69C7B9E9-B20E-4130-B8E2-D9DCB00ED9F4}.Debug|x86.ActiveCfg = Debug|Win32
+		{69C7B9E9-B20E-4130-B8E2-D9DCB00ED9F4}.Debug|x86.Build.0 = Debug|Win32
+		{69C7B9E9-B20E-4130-B8E2-D9DCB00ED9F4}.Release|x64.ActiveCfg = Release|x64
+		{69C7B9E9-B20E-4130-B8E2-D9DCB00ED9F4}.Release|x64.Build.0 = Release|x64
+		{69C7B9E9-B20E-4130-B8E2-D9DCB00ED9F4}.Release|x86.ActiveCfg = Release|Win32
+		{69C7B9E9-B20E-4130-B8E2-D9DCB00ED9F4}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
