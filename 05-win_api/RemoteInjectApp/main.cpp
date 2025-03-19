@@ -60,13 +60,100 @@ INT_PTR CALLBACK DialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lPara
 }
 DWORD WINAPI ThreadProc(LPVOID lpParameter)
 {
-    return 0;
+    DWORD dwProcessId;
+    TCHAR szDllPath[MAX_PATH] = { 0 };
+
+    dwProcessId = GetDlgItemInt(g_hwndDlg, IDC_EDIT_PROCESSID, NULL, FALSE);
+    GetDlgItemText(g_hwndDlg, IDC_EDIT_DLLPATH, szDllPath, _countof(szDllPath));
+    return InjectDll(dwProcessId, szDllPath);
 }
 BOOL InjectDll(DWORD dwProcessId, LPTSTR lpDllPath)
 {
-    return true;
+    HANDLE hProcess = NULL;
+    LPTSTR lpDllPathRemote = NULL;
+    HANDLE hThread = NULL;
+
+    hProcess = OpenProcess(PROCESS_QUERY_INFORMATION | PROCESS_CREATE_PROCESS |
+        PROCESS_VM_OPERATION | PROCESS_VM_WRITE, FALSE, dwProcessId);
+    if (!hProcess) return FALSE;
+
+    int cbDllPath = (_tcslen(lpDllPath) + 1) * sizeof(TCHAR);
+    lpDllPathRemote = (LPTSTR)VirtualAllocEx(hProcess, NULL, cbDllPath,
+        MEM_RESERVE | MEM_COMMIT, PAGE_READWRITE);
+    if (!lpDllPathRemote) return FALSE;
+
+    if (!WriteProcessMemory(hProcess, lpDllPathRemote, lpDllPath, cbDllPath, NULL))
+        return FALSE;
+
+    PTHREAD_START_ROUTINE pfnThreadRtn = (PTHREAD_START_ROUTINE)
+        GetProcAddress(GetModuleHandle(TEXT("Kernel32")), "LoadLibraryW");
+    if (!pfnThreadRtn)
+        return FALSE;
+
+    hThread = CreateRemoteThread(hProcess, NULL, 0, pfnThreadRtn, lpDllPathRemote, 0, NULL);
+    if (!hThread)
+        return FALSE;
+    
+    WaitForSingleObject(hThread, INFINITE);
+
+    if (!lpDllPathRemote)
+        VirtualFreeEx(hProcess, lpDllPathRemote, 0, MEM_RELEASE);
+    if (hThread)
+        CloseHandle(hThread);
+    if (hProcess)
+        CloseHandle(hProcess);
+
+    return TRUE;
 }
 BOOL EjectDll(DWORD dwProcessId, LPTSTR lpDllPath)
 {
-    return true;
+    HANDLE hSnapshot;
+    MODULEENTRY32 me = { sizeof(MODULEENTRY32) };
+    BOOL bRet;
+    BOOL bFound = FALSE;
+    HANDLE hProces = NULL;
+    HANDLE hThread = NULL;
+
+    hSnapshot = CreateToolhelp32Snapshot(TH32CS_SNAPMODULE, dwProcessId);
+    if (hSnapshot == INVALID_HANDLE_VALUE)
+        return FALSE;
+
+    bRet = Module32First(hSnapshot, &me);
+    while (bRet)
+    {
+        if (_tcsicmp(TEXT("RemoteInjectDll.dll"), me.szModule) == 0 || _tcsicmp(lpDllPath, me.szExePath) == 0)
+        {
+            bFound = TRUE;
+            break;
+        }
+        bRet = Module32Next(hSnapshot, &me);
+    }
+
+    if (!bFound)
+        return FALSE;
+
+    hProces = OpenProcess(PROCESS_QUERY_INFORMATION | PROCESS_CREATE_THREAD | PROCESS_VM_OPERATION,
+        FALSE, dwProcessId);
+    if (!hProces)
+        return FALSE;
+
+    PTHREAD_START_ROUTINE pfnThreadRtn = (PTHREAD_START_ROUTINE)
+        GetProcAddress(GetModuleHandle(TEXT("Kernel32")), "FreeLibrary");
+    if (!pfnThreadRtn)
+        return FALSE;
+
+    hThread = CreateRemoteThread(hProces, NULL, 0, pfnThreadRtn, me.modBaseAddr, 0, NULL);
+    if (!hThread)
+        return FALSE;
+
+    WaitForSingleObject(hThread, INFINITE);
+
+    if (hSnapshot != INVALID_HANDLE_VALUE)
+        CloseHandle(hSnapshot);
+    if (hThread)
+        CloseHandle(hThread);
+    if (hProces)
+        CloseHandle(hProces);
+    
+    return TRUE;
 }

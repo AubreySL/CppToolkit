@@ -18,7 +18,7 @@ BOOL APIENTRY DllMain(HMODULE hModule,
     {
     case DLL_PROCESS_ATTACH:
         //find target window
-        hwndRemoteApp = FindWindow(TEXT(""), TEXT("RemoteApp"));
+        hwndRemoteApp = FindWindow(TEXT("#32770"), TEXT("RemoteInjectApp"));
         
         while (VirtualQuery(lpAddress, &mbi, sizeof(mbi)) == sizeof(mbi))
         {
