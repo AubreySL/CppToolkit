@@ -21,6 +21,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TCP_Server", "TCP_Server\TC
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Async_Socket_Server", "Async_Socket_Server\Async_Socket_Server.vcxproj", "{9DEEEDC1-C90C-4F0A-8043-17F790F14AF5}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Async_Socket_Client", "Async_Socket_Client\Async_Socket_Client.vcxproj", "{8DB0F315-6EAE-4788-83FF-490D1798C2D7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -101,6 +103,14 @@ Global
 		{9DEEEDC1-C90C-4F0A-8043-17F790F14AF5}.Release|x64.Build.0 = Release|x64
 		{9DEEEDC1-C90C-4F0A-8043-17F790F14AF5}.Release|x86.ActiveCfg = Release|Win32
 		{9DEEEDC1-C90C-4F0A-8043-17F790F14AF5}.Release|x86.Build.0 = Release|Win32
+		{8DB0F315-6EAE-4788-83FF-490D1798C2D7}.Debug|x64.ActiveCfg = Debug|x64
+		{8DB0F315-6EAE-4788-83FF-490D1798C2D7}.Debug|x64.Build.0 = Debug|x64
+		{8DB0F315-6EAE-4788-83FF-490D1798C2D7}.Debug|x86.ActiveCfg = Debug|Win32
+		{8DB0F315-6EAE-4788-83FF-490D1798C2D7}.Debug|x86.Build.0 = Debug|Win32
+		{8DB0F315-6EAE-4788-83FF-490D1798C2D7}.Release|x64.ActiveCfg = Release|x64
+		{8DB0F315-6EAE-4788-83FF-490D1798C2D7}.Release|x64.Build.0 = Release|x64
+		{8DB0F315-6EAE-4788-83FF-490D1798C2D7}.Release|x86.ActiveCfg = Release|Win32
+		{8DB0F315-6EAE-4788-83FF-490D1798C2D7}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

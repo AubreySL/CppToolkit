@@ -86,8 +86,6 @@ VOID OnInit(HWND hwndDlg)
 	return;
 }
 VOID OnStart() {
-
-	
 	//create socket for listen
 	g_socketListen = socket(AF_INET, SOCK_STREAM, 0);
 	if (g_socketListen == INVALID_SOCKET)
