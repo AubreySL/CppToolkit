@@ -1,6 +1,7 @@
 export module database;
 import <string>;
 import <vector>;
+import <stdexcept>;
 import employee;
 
 namespace Records
@@ -33,4 +34,54 @@ namespace Records
 		m_employees.push_back(theEmployee);
 		return m_employees.back();
 	}
+	Employee& DataBase::getEmployee(int employeeNumber)
+	{
+		for (auto& employee : m_employees)
+		{
+			if (employee.getEmployeeNumber() == employeeNumber) {
+				return employee;
+			}
+		}
+		using namespace std;
+		throw logic_error{ "No employee found." };
+	}
+	Employee& DataBase::getEmployee(const std::string& firstName, const std::string& lastName)
+	{
+		for (auto& employee : m_employees)
+		{
+			if (employee.getFirstName()== firstName && employee.getLastName()== lastName) {
+				return employee;
+			}
+		}
+		using namespace std;
+		throw logic_error{ "No employee found." };
+	}
+
+	void DataBase::displayAll() const
+	{
+		for (const auto& employee : m_employees)
+		{
+			employee.display();
+		}
+	}
+
+	void DataBase::displayCurrent() const
+	{
+		for (const auto& employee : m_employees)
+		{
+			if (employee.isHired()) { employee.display(); }
+		}
+	}
+
+	void DataBase::displayFormer() const
+	{
+		for (const auto& employee : m_employees)
+		{
+			if (!employee.isHired())
+			{ 
+				employee.display();
+			}
+		}
+	}
+
 }
