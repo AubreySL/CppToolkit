@@ -9,7 +9,7 @@ class XFTTS: public TTS
 {
 public:
     XFTTS() = default;
-    ~XFTTS() = default;
+    virtual ~XFTTS() = default;
 
     // Í¨¹ý TTS ¼Ì³Ð
     void textToSpeech(const std::string& text) override;
