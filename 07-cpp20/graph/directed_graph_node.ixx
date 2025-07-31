@@ -1,7 +1,8 @@
-module directed_graph:node;
+export module directed_graph_node;
+//import directed_graph;
 import directed_graph;
 
-namespace details 
+export namespace details
 {
 	template <typename T>
 	class graph_node
@@ -27,8 +28,6 @@ namespace details
 		T m_data;
 		adjacency_list_type m_adjacentNodeIndices;
 	};
-
-
 
 	template<typename T>
 	graph_node<T>::graph_node(directed_graph<T>* graph, const T& t):m_graph{graph},m_data{t}
@@ -61,7 +60,7 @@ namespace details
 	template<typename T>
 	const graph_node<T>::adjacency_list_type& graph_node<T>::get_adjacent_nodes_indices() const
 	{
-		rturn m_adjacentNodeIndices;
+		return m_adjacentNodeIndices;
 	}
 
 }

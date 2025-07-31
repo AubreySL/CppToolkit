@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="directed_graph.node.ixx">
+    <ClCompile Include="directed_graph_node.ixx">
       <Filter>头文件</Filter>
     </ClCompile>
     <ClCompile Include="directed_graph.ixx">
